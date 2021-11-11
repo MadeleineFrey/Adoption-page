@@ -21,7 +21,7 @@ def available_table():
     available = SHEET.worksheet("available").get_all_values()
     pprint(available)
 
-    main_menu_available = input("press enter to return to main page")
+    main_menu_available = input("\n Press enter to return to main page")
 
 
 def past_table():
@@ -32,7 +32,7 @@ def past_table():
     past = SHEET.worksheet("past").get_all_values()
     pprint(past)
 
-    main_menu_past = input("press enter to return to main page")
+    main_menu_past = input("\n Press enter to return to main page")
 
 def update_page():
     """
@@ -46,7 +46,7 @@ def update_page():
         print("3. Update Animal")
         print("4. Back to main page \n")
 
-        user_choice = input('please enter a number from 1-4 here: ')
+        user_choice = input('\n please enter a number from 1-4 here: ')
 
         if user_choice == '1':
             print("works")
@@ -65,7 +65,7 @@ def get_user_data():
         print("2. Past/Adopted pets")
         print("3. Update")
 
-        user_data = input('Please enter a number from 1-3 here: ')
+        user_data = input('\n Please enter a number from 1-3 here: ')
 
         if user_data == '1':
             print("you picked 1")
