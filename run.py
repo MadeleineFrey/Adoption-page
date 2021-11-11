@@ -1,5 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
+from pprint import pprint
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -23,16 +24,48 @@ def get_user_data():
         print("2. Past/Adopted pets")
         print("3. Update")
 
-        user_data = input('Please enter a number from 1-3 here')
-        print(f"you said {user_data}")
+        user_data = input('Please enter a number from 1-3 here: ')
 
         if user_data == '1':
-            print("you said 1")
+            print("you picked 1")
+            available_table()
+            
         elif user_data == '2':
-            print("you said 2")
+            print("you picked 2")
+            past_table()
         elif user_data == '3':
-            print("you said 3")
+            print("you picked 3")
+            update_page()
         else:
             print("you picked an invalid value \n")
+
+
+
+def available_table():
+    """
+    t
+    """
+    available = SHEET.worksheet("available").get_all_values()
+    pprint(available)
+
+
+def past_table():
+    """
+    t
+    """
+    past = SHEET.worksheet("past").get_all_values()
+    pprint(past)
+
+def update_page():
+    """
+    t
+    """
+    print("Introduction to update page \n")
+    print("1. Show available animals")
+    print("2. Add Animal")
+    print("3. Update Animal")
+    print("4. Back to main page")
+
+
 
 get_user_data()
