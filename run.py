@@ -13,11 +13,52 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('adoption_page')
 
+def available_table():
+    """
+    t
+    """
+    print("\033c")
+    available = SHEET.worksheet("available").get_all_values()
+    pprint(available)
+
+    main_menu_available = input("press enter to return to main page")
+
+
+def past_table():
+    """
+    t
+    """
+    print("\033c")
+    past = SHEET.worksheet("past").get_all_values()
+    pprint(past)
+
+    main_menu_past = input("press enter to return to main page")
+
+def update_page():
+    """
+    t
+    """
+    print("\033c")
+    while True:
+        print("Introduction to update page \n")
+        print("1. Show available animals")
+        print("2. Add Animal")
+        print("3. Update Animal")
+        print("4. Back to main page \n")
+
+        user_choice = input('please enter a number from 1-4 here: ')
+
+        if user_choice == '1':
+            print("works")
+        else:
+            print("invalid answer")
+            input('please enter a number from 1-4 here: ')
 
 def get_user_data():
     """
     Get User data here
     """
+    
     while True:
         print("Introduction to adoption page \n")
         print("1. Show available animals")
@@ -39,33 +80,7 @@ def get_user_data():
         else:
             print("you picked an invalid value \n")
 
-
-
-def available_table():
-    """
-    t
-    """
-    available = SHEET.worksheet("available").get_all_values()
-    pprint(available)
-
-
-def past_table():
-    """
-    t
-    """
-    past = SHEET.worksheet("past").get_all_values()
-    pprint(past)
-
-def update_page():
-    """
-    t
-    """
-    print("Introduction to update page \n")
-    print("1. Show available animals")
-    print("2. Add Animal")
-    print("3. Update Animal")
-    print("4. Back to main page")
-
+        print("\033c")
 
 
 get_user_data()
