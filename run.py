@@ -34,7 +34,7 @@ def past_table():
 
     main_menu_past = input("\n Press enter to return to main page")
 
-def update_page():
+def update_database():
     """
     t
     """
@@ -50,9 +50,48 @@ def update_page():
 
         if user_choice == '1':
             print("works")
+            available_table()
+        elif user_choice == '2':
+            print('You picked 2')
+            add_animal()
+
+        elif user_choice == '3':
+            print('You picked 3')
+
+        elif user_choice == '4':
+            print('you picked 4')
+            get_user_data()
         else:
             print("invalid answer")
-            input('please enter a number from 1-4 here: ')
+            #input('please enter a number from 1-4 here: ')
+    
+def add_animal():
+    """
+    t
+    """
+    print("\033c")
+    print('How the user is suposed to write their answer, separated by commas \n')
+    
+    add_animal_input = input('\n Enter your data here: ')
+    
+    add_animal_data = add_animal_input.split(",")
+    validate_add_data(add_animal_data)
+
+
+def validate_add_data(values):
+    """ 
+    t, there need to be exactly 4 values
+    """
+    print("\033c")
+    
+    try:
+        if len(values) != 4:
+            raise ValueError(
+                f'you need exactly 4 values, you provided {len(values)}'
+            )
+    except ValueError as e:
+        print(f'invalid data: {e}, try again')
+    
 
 def get_user_data():
     """
@@ -64,6 +103,7 @@ def get_user_data():
         print("1. Show available animals")
         print("2. Past/Adopted pets")
         print("3. Update")
+        print("4. if there is time, aply for adoption")
 
         user_data = input('\n Please enter a number from 1-3 here: ')
 
@@ -76,7 +116,7 @@ def get_user_data():
             past_table()
         elif user_data == '3':
             print("you picked 3")
-            update_page()
+            update_database()
         else:
             print("you picked an invalid value \n")
 
