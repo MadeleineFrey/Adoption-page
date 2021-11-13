@@ -70,12 +70,19 @@ def add_animal():
     t
     """
     print("\033c")
-    print('How the user is suposed to write their answer, separated by commas \n')
-    
-    add_animal_input = input('\n Enter your data here: ')
-    
-    add_animal_data = add_animal_input.split(",")
-    validate_add_data(add_animal_data)
+
+    while True:
+        print('How the user is suposed to write their answer, separated by commas \n')
+        
+        add_animal_input = input('\n Enter your data here: ')
+        
+        add_animal_data = add_animal_input.split(",")
+
+        if validate_add_data(add_animal_data):
+            print('valid')
+            break
+
+    return add_animal_data
 
 
 def validate_add_data(values):
@@ -83,7 +90,7 @@ def validate_add_data(values):
     t, there need to be exactly 4 values
     """
     print("\033c")
-    
+    #print(values)
     try:
         if len(values) != 4:
             raise ValueError(
@@ -91,7 +98,11 @@ def validate_add_data(values):
             )
     except ValueError as e:
         print(f'invalid data: {e}, try again')
-    
+        return False
+
+    return True
+
+data = add_animal()
 
 def get_user_data():
     """
