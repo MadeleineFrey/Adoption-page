@@ -57,6 +57,7 @@ def update_database():
 
         elif user_choice == '3':
             print('You picked 3')
+            
 
         elif user_choice == '4':
             print('you picked 4')
@@ -79,7 +80,11 @@ def add_animal():
         add_animal_data = add_animal_input.split(",")
 
         if validate_add_data(add_animal_data):
+            #call the update_add_animal_worksheet function instead?
             print('valid')
+            available_worksheet = SHEET.worksheet('available')
+            available_worksheet.append_row(add_animal_data)
+            print('it is working \n')
             break
 
     return add_animal_data
@@ -87,11 +92,12 @@ def add_animal():
 
 def validate_add_data(values):
     """ 
-    t, there need to be exactly 4 values
+    there need to be exactly 4 values
     """
     print("\033c")
     #print(values)
     try:
+        #[int(value) for value in values]
         if len(values) != 4:
             raise ValueError(
                 f'you need exactly 4 values, you provided {len(values)}'
@@ -102,7 +108,14 @@ def validate_add_data(values):
 
     return True
 
-data = add_animal()
+def update_add_animal_worksheet(data):
+    """
+    t
+    """
+    #print("updating available worksheet... \n")
+    #available_worksheet = SHEET.available
+    #available_worksheet.append_row(data)
+    #print('it is working \n')
 
 def get_user_data():
     """
@@ -133,5 +146,11 @@ def get_user_data():
 
         print("\033c")
 
+    
+
 
 get_user_data()
+
+#data = add_animal()
+#add_data = [int(val) for val in data]
+#update_add_animal_worksheet(data)
