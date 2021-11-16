@@ -1,6 +1,5 @@
 import gspread
 from google.oauth2.service_account import Credentials
-from pprint import pprint
 from prettytable import PrettyTable
 table = PrettyTable()
 x = PrettyTable()
@@ -58,7 +57,7 @@ def update_database():
         print("3. Update Animal")
         print("4. Back to main page \n")
 
-        user_choice = input('\n please enter a number from 1-4 here: ')
+        user_choice = input('\n please enter a number from 1-4 here: \n')
 
         if user_choice == '1':
             print("works")
@@ -88,7 +87,7 @@ def add_animal():
     while True:
         print('How the user is suposed to write their answer, separated by commas \n')
         
-        add_animal_input = input('\n Enter your data here: ')
+        add_animal_input = input('\n Enter your data here: \n')
         
         add_animal_data = add_animal_input.split(",")
 
@@ -104,11 +103,10 @@ def add_animal():
 
 def validate_add_data(values):
     """ 
-    there need to be exactly 4 values
+    There need to be exactly 4 values
     """
     print("\033c")
     try:
-        #[int(value) for value in values]
         if len(values) != 4:
             raise ValueError(
                 f'you need exactly 4 values, you provided {len(values)}'
@@ -131,14 +129,14 @@ def update_available_sheet():
         print("2. Move available animal to past")
         print("3. Back to main page/Exit \n")
 
-        update_choice = input('\n please enter a number from 1-4 here: ')
+        update_choice = input('\n please enter a number from 1-4 here: \n')
 
         if update_choice == '1':
             print("works")
             delete_row()
         elif update_choice == '2':
             print('You picked 2')
-            add_animal()
+            update_row()
 
         elif update_choice == '3':
             print('You picked 3')
@@ -149,17 +147,21 @@ def update_available_sheet():
 
 def delete_row():
     """
-    y
+    h
     """
     print("\033c")
 
     while True:
         print('How the user is suposed to write their answer, separated by commas \n')
 
-        delete_input = input('\n Enter your data here: ')
+        delete_input = input('\n Enter your data here: \n')
 
         if validate_delete_data(delete_input):
-            print('delet')
+            print('delete')
+            print(delete_input)
+            r = SHEET.worksheet('available')
+            w = r.row_values(delete_input)
+            print(w)
             break
 
     return delete_input
@@ -183,6 +185,43 @@ def validate_delete_data(valuess):
     return True
 
 
+def update_row():
+    #while True:
+    #add 3 difrent inputs for row col val
+        print('Ex 1, 1, "Bella" \n')
+
+        update_row_input = input('\n Enter your data here: \n')
+        av = SHEET.worksheet('available')
+        av.update_cell(row, col, value)
+
+        #if validate_update_row(update_row_input):
+           
+            #av = SHEET.worksheet('available')
+            #av.update(update_row_input)
+
+            #break
+
+    #return update_row_input
+
+def validate_update_row(valuess):
+    """ 
+    there need to be exactly 4 values
+    """
+    print("\033c")
+    try:
+    
+        if len (valuess) < 1:
+            raise ValueError(
+                f'you need exactly 4 values, you provided {valuess}'
+            )
+    except ValueError as e:
+        print(f'invalid data: {e}, try again')
+        return False
+
+    return True
+
+
+
 def get_user_data():
     """
     Get User input data here
@@ -195,7 +234,7 @@ def get_user_data():
         print("3. Update")
         print("4. if there is time, aply for adoption")
 
-        user_data = input('\n Please enter a number from 1-3 here: ')
+        user_data = input('\n Please enter a number from 1-3 here: \n')
 
         if user_data == '1':
             print("you picked 1")
