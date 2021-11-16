@@ -135,7 +135,7 @@ def update_available_sheet():
 
         if update_choice == '1':
             print("works")
-            available_table()
+            delete_row()
         elif update_choice == '2':
             print('You picked 2')
             add_animal()
@@ -151,8 +151,36 @@ def delete_row():
     """
     y
     """
-    
+    print("\033c")
 
+    while True:
+        print('How the user is suposed to write their answer, separated by commas \n')
+
+        delete_input = input('\n Enter your data here: ')
+
+        if validate_delete_data(delete_input):
+            print('delet')
+            break
+
+    return delete_input
+
+
+def validate_delete_data(valuess):
+    """ 
+    there need to be exactly 4 values
+    """
+    print("\033c")
+    try:
+        [int(value) for value in valuess]
+        if len (valuess) < 1:
+            raise ValueError(
+                f'you need exactly 4 values, you provided {valuess}'
+            )
+    except ValueError as e:
+        print(f'invalid data: {e}, try again')
+        return False
+
+    return True
 
 
 def get_user_data():
