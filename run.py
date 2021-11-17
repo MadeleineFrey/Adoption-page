@@ -10,51 +10,54 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
     ]
 
-CREDS = Credentials.from_service_account_file('creds.json')
+CREDS = Credentials.from_service_account_file("creds.json")
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-SHEET = GSPREAD_CLIENT.open('adoption_page')
+SHEET = GSPREAD_CLIENT.open("adoption_page")
 
 
-def available_table():
+def show_available_table():
     """
     Display details of all available animals in the available worksheet,
-    sheet as a table using PrettyTables
+    sheet as a table, input field to exit.
     """
     print("\033c")
+    print("All available animals are listed below. \n")
+
     available = SHEET.worksheet("available").get_all_values()
     table = PrettyTable()
-    table.field_names = ['NAME', 'AGE', 'SPECIE', 'STATUS']
+    table.field_names = ["NAME", "AGE", "SPECIES", "STATUS"]
     table.add_rows(available)
-
     print(table)
 
     main_menu_available = input("\n Press enter to return to main page \n")
 
 
-def past_table():
+def show_past_table():
     """
     Display details of all past animals in the past worksheet,
-    sheet as a table using PrettyTables
+    sheet as a table, input field to exit.
     """
     print("\033c")
+    print("All past animals are listed below. \n")
     past = SHEET.worksheet("past").get_all_values()
-    x = PrettyTable()
-    x.field_names = ['NAME', 'AGE', 'SPECIE', 'STATUS']
-    x.add_rows(past)
-    print(x)
+    table = PrettyTable()
+    table.field_names = ["NAME", "AGE", "SPECIES", "STATUS"]
+    table.add_rows(past)
+    print(table)
 
     main_menu_past = input("\n Press enter to return to main page \n ")
 
 
 def update_database():
     """
-    t
+    Display the different options for the user.
+    Enter a valid input value and the function will return the correct output.
     """
     
     while True:
         print("\033c")
-        print("Introduction to update page \n")
+        print("Welcome to the update page. \nHere, you can add an animal to the available list or update a specific animal by typing in a number between 1-4. \n")
         print("1. Show available animals")
         print("2. Add Animal")
         print("3. Update Animal")
@@ -62,46 +65,42 @@ def update_database():
 
         user_choice = input('\n please enter a number from 1-4 here: \n')
 
-        if user_choice == '1':
-            print("works")
-            available_table()
-        elif user_choice == '2':
-            print('You picked 2')
+        if user_choice == "1":
+            show_available_table()
+        elif user_choice == "2":
             add_animal()
-
-        elif user_choice == '3':
-            print('You picked 3')
+        elif user_choice == "3":
             update_available_sheet()
-
-        elif user_choice == '4':
-            print('you picked 4')
+        elif user_choice == "4":
             get_user_data()
         else:
             print("invalid answer")
-            #input('please enter a number from 1-4 here: ')
     
 
 def add_animal():
     """
-    t
+    Display inputfield that takes values and if the value is valid execute code below in if statement.
+    Run a while loop to collect a valid string of data from the user. the string must contain 4 values separated by commas. 
+    This loop will repeatedly request data, until it is valid.
     """
     print("\033c")
 
     while True:
-        print('How the user is suposed to write their answer, separated by commas \n')
+        print("Please enter data about animal as shown below.")
+        print("Data should be 4 values, separated by commas.\n")
+        print("Name,Age,Spesiec,Status")
+        print("Example: Sam,3,dog,available\n")
         
-        add_animal_input = input('\n Enter your data here: \n')
+        add_animal_input = input("\n Enter your data here: \n")
         
         add_animal_data = add_animal_input.split(",")
 
-        if add_animal_input == 'x':
+        if add_animal_input == "x":
             update_database()
         else:
             if validate_add_data(add_animal_data):
-                print('valid')
-                available_worksheet = SHEET.worksheet('available')
+                available_worksheet = SHEET.worksheet("available")
                 available_worksheet.append_row(add_animal_data)
-                print('it is working \n')
                 break
 
     return add_animal_data
@@ -109,16 +108,17 @@ def add_animal():
 
 def validate_add_data(values):
     """ 
-    There need to be exactly 4 values
+    Takes one parameter and return true or false depending on what the parameter was.
+    Inside the try, Raises ValueError if there aren't exactly 6 values.
     """
     print("\033c")
     try:
         if len(values) != 4:
             raise ValueError(
-                f'you need exactly 4 values, you provided {len(values)}'
+                f"you need exactly 4 values, you provided {len(values)}"
             )
     except ValueError as e:
-        print(f'invalid data: {e}, try again')
+        print(f"invalid data: {e}, try again")
         return False
 
     return True
@@ -126,26 +126,27 @@ def validate_add_data(values):
 
 def update_available_sheet():
     """
-    t
+    Display the different options for the user.
+    Enter a valid input value and the function will return the correct output.
     """
     
     while True:
         print("\033c")
-        print("Introduction to update page \n")
-        print("1. ")
-        print("2. ")
+        print("Welcome! Here you can watch available and past animals as well as update a specific animal by typing in a number between 1-4. \n")
+        print("1. Show available animals")
+        print("2. Past/Adopted pets")
         print("3. Delete available animal")
         print("4. Back to main page/Exit \n")
 
-        update_choice = input('\n please enter a number from 1-4 here: \n')
+        update_choice = input("\n please enter a number from 1-4 here: \n")
 
-        if update_choice == '1':
-            available_table()
-        elif update_choice == '2':
-            past_table()
-        elif update_choice == '3':
+        if update_choice == "1":
+            show_available_table()
+        elif update_choice == "2":
+            show_past_table()
+        elif update_choice == "3":
             delete_row()
-        elif update_choice == '4':
+        elif update_choice == "4":
             get_user_data()
         else:
             print("invalid answer")
@@ -153,22 +154,25 @@ def update_available_sheet():
 
 def delete_row():
     """
-    h
+    Display inputfield that takes values and if the value is valid execute code below in if statement.
+    Run a while loop to collect a valid string of data from the user. The string must contain a value. 
+    This loop will repeatedly request data, until it is valid.
+
+    When there is a valid input value execute the code inside the if statement.
     """
     print("\033c")
 
     while True:
-        print('How the user is suposed to write their answer, separated by commas \n')
+        print("How the user is suposed to write their answer, separated by commas \n")
 
-        delete_input = input('\n Enter your data here: \n')
+        delete_input = input("\n Enter your data here: \n")
 
-        if delete_input == 'x':
+        if delete_input == "x":
             update_available_sheet()
         else:
             if validate_delete_data(delete_input):
-                print('delete')
-                l = int(delete_input)
-                SHEET.worksheet('available').delete_rows(l)
+                delete = int(delete_input)
+                SHEET.worksheet("available").delete_rows(delete)
                 break
 
     return delete_input
@@ -176,17 +180,18 @@ def delete_row():
 
 def validate_delete_data(valuess):
     """ 
-    there need to be exactly 4 values
+    Takes one parameter and return true or false depending on what the parameter was.
+    Inside the try, Raises ValueError if there aren't a value and if it's not posible to converts the string value into a integer.
     """
     print("\033c")
     try:
         [int(value) for value in valuess]
         if len (valuess) < 1:
             raise ValueError(
-                f'you need exactly 4 values, you provided {valuess}'
+                f"you need exactly 4 values, you provided {valuess}"
             )
     except ValueError as e:
-        print(f'invalid data: {e}, try again')
+        print(f"invalid data: {e}, try again")
         return False
 
     return True
@@ -194,31 +199,27 @@ def validate_delete_data(valuess):
 
 def get_user_data():
     """
-    Get User input data here
+    Get input from the user.
+    Run a while loop to collect a valid string of data from the user
     """
     
     while True:
         print("\033c")
-        print("Introduction to adoption page \n")
+        print("Welcome to the Adoption page! Here, you can look at all of the available animals as well as the animals we have had before. \n")
+        print("You can also add an animal to the available list or update a specific animal.\n")
         print("1. Show available animals")
         print("2. Past/Adopted pets")
         print("3. Update")
 
-        user_data = input('\n Please enter a number from 1-3 here: \n')
+        user_data = input("\n Please enter a number from 1-3 here: \n")
 
-        if user_data == '1':
-            print("you picked 1")
-            available_table()
-            
-        elif user_data == '2':
-            print("you picked 2")
-            past_table()
-        elif user_data == '3':
-            print("you picked 3")
+        if user_data == "1":
+            show_available_table()
+        elif user_data == "2":
+            show_past_table()
+        elif user_data == "3":
             update_database()
         else:
-            print("you picked an invalid value \n")
-
-    
+            print(f"You picked an invalid value")
 
 get_user_data()
