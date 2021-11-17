@@ -1,8 +1,8 @@
 import gspread
 from google.oauth2.service_account import Credentials
 from prettytable import PrettyTable
-table = PrettyTable()
-x = PrettyTable()
+
+
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -23,12 +23,13 @@ def available_table():
     """
     print("\033c")
     available = SHEET.worksheet("available").get_all_values()
+    table = PrettyTable()
     table.field_names = ['NAME', 'AGE', 'SPECIE', 'STATUS']
     table.add_rows(available)
 
     print(table)
 
-    main_menu_available = input("\n Press enter to return to main page")
+    main_menu_available = input("\n Press enter to return to main page \n")
 
 
 def past_table():
@@ -38,19 +39,21 @@ def past_table():
     """
     print("\033c")
     past = SHEET.worksheet("past").get_all_values()
+    x = PrettyTable()
     x.field_names = ['NAME', 'AGE', 'SPECIE', 'STATUS']
     x.add_rows(past)
     print(x)
 
-    main_menu_past = input("\n Press enter to return to main page")
+    main_menu_past = input("\n Press enter to return to main page \n ")
 
 
 def update_database():
     """
     t
     """
-    print("\033c")
+    
     while True:
+        print("\033c")
         print("Introduction to update page \n")
         print("1. Show available animals")
         print("2. Add Animal")
@@ -91,12 +94,15 @@ def add_animal():
         
         add_animal_data = add_animal_input.split(",")
 
-        if validate_add_data(add_animal_data):
-            print('valid')
-            available_worksheet = SHEET.worksheet('available')
-            available_worksheet.append_row(add_animal_data)
-            print('it is working \n')
-            break
+        if add_animal_input == 'x':
+            update_database()
+        else:
+            if validate_add_data(add_animal_data):
+                print('valid')
+                available_worksheet = SHEET.worksheet('available')
+                available_worksheet.append_row(add_animal_data)
+                print('it is working \n')
+                break
 
     return add_animal_data
 
@@ -122,24 +128,24 @@ def update_available_sheet():
     """
     t
     """
-    print("\033c")
+    
     while True:
+        print("\033c")
         print("Introduction to update page \n")
-        print("1. Delete available animal")
-        print("2. Move available animal to past")
-        print("3. Back to main page/Exit \n")
+        print("1. ")
+        print("2. ")
+        print("3. Delete available animal")
+        print("4. Back to main page/Exit \n")
 
         update_choice = input('\n please enter a number from 1-4 here: \n')
 
         if update_choice == '1':
-            print("works")
-            delete_row()
+            available_table()
         elif update_choice == '2':
-            print('You picked 2')
-            update_row()
-
+            past_table()
         elif update_choice == '3':
-            print('You picked 3')
+            delete_row()
+        elif update_choice == '4':
             get_user_data()
         else:
             print("invalid answer")
@@ -156,13 +162,14 @@ def delete_row():
 
         delete_input = input('\n Enter your data here: \n')
 
-        if validate_delete_data(delete_input):
-            print('delete')
-            print(delete_input)
-            r = SHEET.worksheet('available')
-            w = r.row_values(delete_input)
-            print(w)
-            break
+        if delete_input == 'x':
+            update_available_sheet()
+        else:
+            if validate_delete_data(delete_input):
+                print('delete')
+                l = int(delete_input)
+                SHEET.worksheet('available').delete_rows(l)
+                break
 
     return delete_input
 
@@ -185,54 +192,17 @@ def validate_delete_data(valuess):
     return True
 
 
-def update_row():
-    #while True:
-    #add 3 difrent inputs for row col val
-        print('Ex 1, 1, "Bella" \n')
-
-        update_row_input = input('\n Enter your data here: \n')
-        av = SHEET.worksheet('available')
-        av.update_cell(row, col, value)
-
-        #if validate_update_row(update_row_input):
-           
-            #av = SHEET.worksheet('available')
-            #av.update(update_row_input)
-
-            #break
-
-    #return update_row_input
-
-def validate_update_row(valuess):
-    """ 
-    there need to be exactly 4 values
-    """
-    print("\033c")
-    try:
-    
-        if len (valuess) < 1:
-            raise ValueError(
-                f'you need exactly 4 values, you provided {valuess}'
-            )
-    except ValueError as e:
-        print(f'invalid data: {e}, try again')
-        return False
-
-    return True
-
-
-
 def get_user_data():
     """
     Get User input data here
     """
-    print("\033c")
+    
     while True:
+        print("\033c")
         print("Introduction to adoption page \n")
         print("1. Show available animals")
         print("2. Past/Adopted pets")
         print("3. Update")
-        print("4. if there is time, aply for adoption")
 
         user_data = input('\n Please enter a number from 1-3 here: \n')
 
@@ -249,13 +219,6 @@ def get_user_data():
         else:
             print("you picked an invalid value \n")
 
-        print("\033c")
-
     
 
-
 get_user_data()
-
-#data = add_animal()
-#add_data = [int(val) for val in data]
-#update_add_animal_worksheet(data)
