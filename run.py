@@ -86,6 +86,7 @@ def add_animal():
     print("\033c")
 
     while True:
+        print("To add an animal:")
         print("Please enter data about animal as shown below.")
         print("Data should be 4 values, separated by commas.\n")
         print("Name,Age,Spesiec,Status")
@@ -209,7 +210,7 @@ def get_user_data():
     """
     while True:
         print("\033c")
-        print("Welcome to the Adoption page!") 
+        print("Welcome to the Adoption page!")
         print("Here, you can look at all of the available animals,")
         print("as well as the animals we have had before. \n")
         print("You can also add an animal to the available sheet or,")
@@ -227,6 +228,7 @@ def get_user_data():
         elif user_data == "3":
             update_database()
         else:
-            print(f"You picked an invalid value")
+            print("You picked an invalid value")
+
 
 get_user_data()

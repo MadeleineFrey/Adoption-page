@@ -28,7 +28,7 @@ The user can show and interact with the available information on what animals th
 
 ---
 
-#### Home page (p)
+#### Home page
 ---
 
 <p>
@@ -40,7 +40,7 @@ The options are:
 * Past/Adopted pets
 * Update
 
-<p>B</p>
+![HomePage](./media/HomePage.jpeg)
 
 #### Show available animals
 ---
@@ -50,7 +50,7 @@ If the user chooses to enter the number 1 in the input field, The application wi
 If the user wishes to return to the home page they can press enter.
 </p>
 
-<p>B</p>
+![Available](./media/AvailableAnimals.jpeg)
 
 #### Past/Adopted pets
 ---
@@ -60,7 +60,7 @@ If the user chooses to enter the number 2 in the input field, The application wi
 If the user wishes to return to the home page they can press enter.
 </p>
 
-<p>B</p>
+![Past](./media/PastAnimals.jpeg)
 
 #### Update
 ---
@@ -75,7 +75,7 @@ the options are:
 * Update animal
 * Back to the main page
 
-<p>B</p>
+![Update](./media/Update.jpeg)
 
 #### Show available animals
 ---
@@ -93,7 +93,7 @@ If the user chooses to enter the number 2 in the input field, The application wi
 If the user wishes to return to the previous page they can type in an "x" and press enter.
 </p>
 
-<p>B</p>
+![Add](./media/Add.jpeg)
 
 #### Update animal
 ---
@@ -102,7 +102,7 @@ If the user wishes to return to the previous page they can type in an "x" and pr
 If the user chooses to enter the number 3 in the input field, The application will take them to the Update animal page. Where the application will give them 4 options to choose from. The first two options are the same as on the home page. If they enter 4 as an input they will be taken back to the home page
 </p>
 
-<p>B</p>
+![UpdateAnimal](./media/UpdateA.jpeg)
 
 #### Delete animal
 ---
@@ -112,7 +112,7 @@ If the user chooses to enter number 3 as the input number they will be taken to 
 If the user wishes to return to the previous page they can type in an "x" and press enter.
 </p>
 
-<p>B</p>
+![Delete](./media/Delete.jpeg)
 
 
 ### Features that could be implemented in the future
@@ -123,12 +123,14 @@ If the user wishes to return to the previous page they can type in an "x" and pr
 
 * Application
     * There would be useful for the client to have a way of tracking the applicants who want to adopt an animal in a spreadsheet. 
-        * This can be done by creating an option for the applicants to enter apply for an available animal. 
+        * This can be done by creating an option for the applicants to apply for an available animal. 
 
 
 ## **Validator Testing**
 ---
 ### Python validator (PEP8)
+
+![Pep8](./media/Pep8.jpeg)
 
 <p>
 The application was tested with pep8 and after a few changes passed the test without any errors. 
@@ -197,17 +199,18 @@ pick a branch to deploy and then click the deploy branch button.
 
 ### content
 ---
+The contents used for the application is data from the spreadsheets down below:
 <p>
-Available sheet
+Available sheet, Example:
 </p>
 
-<p>B</p>
+![Available](./media/AvS.jpeg)
 
 <p>
-Past sheet
+Past sheet, Example:
 </p>
 
-<p>B</p>
+![Past](./media/PaS.jpeg)
 
 ### code
 ---
